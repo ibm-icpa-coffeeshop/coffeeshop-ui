@@ -2,7 +2,7 @@ apiVersion: appsody.dev/v1beta1
 kind: AppsodyApplication
 metadata:
   annotations:
-    image.opencontainers.org/created: "2020-02-11T11:39:26Z"
+    image.opencontainers.org/created: "2020-02-14T15:35:47Z"
     stack.appsody.dev/authors: Mike Andrasak <andrasak@us.ibm.com>, Andy Mauer <ajmauer@us.ibm.com>,
       Scott Kurz <skurz@us.ibm.com>, Adam Wisniewski <awisniew@us.ibm.com>
     stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.1
@@ -19,11 +19,13 @@ metadata:
   name: coffeeshop-service-appsody
   namespace: default
 spec:
-  applicationImage: matthewpwilson/coffeeshop-service-appsody:third
+  applicationImage: matthewpwilson/coffeeshop-service-appsody:fri_10
   createKnativeService: false
   env:
   - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
     value: my-cluster-kafka-bootstrap.kafka.svc:9092
+  - name: FOO
+    value: test
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -43,6 +45,10 @@ spec:
   service:
     annotations:
       prometheus.io/scrape: "true"
+    consumes:
+    - category: openapi
+      name: appsody-http
+      namespace: appsody-http
     port: 9080
     type: NodePort
   stack: java-openliberty

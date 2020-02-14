@@ -12,6 +12,8 @@
 
   <webApplication location="coffeeshop-service.war" contextRoot="/">
 
+    <variable name="com.ibm.runtimes.events.coffeeshop.http.BaristaService/mp-rest/url" value="${env.APPSODY_HTTP_APPSODY_HTTP_URL}" />
+
   </webApplication>
 
 </server>
