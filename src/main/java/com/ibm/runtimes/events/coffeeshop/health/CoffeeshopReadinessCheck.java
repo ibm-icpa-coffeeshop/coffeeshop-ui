@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -23,9 +24,15 @@ public class CoffeeshopReadinessCheck implements HealthCheck {
     @Inject
     @ConfigProperty(name = "mp.messaging.connector.liberty-kafka.bootstrap.servers")
     String kafkaServer;
+    private AdminClient adminClient;
+
+    @PostConstruct
+    public void init() {
+        adminClient = createAdminClient();
+    }
+
 
     private boolean isReady() {
-        AdminClient adminClient = createAdminClient();
         return checkIfCoffeeshopConsumerGroupRegistered(adminClient);
     }
 
@@ -43,8 +50,7 @@ public class CoffeeshopReadinessCheck implements HealthCheck {
     private AdminClient createAdminClient() {
         Properties connectionProperties = new Properties();
         connectionProperties.put("bootstrap.servers", kafkaServer);
-        AdminClient adminClient = AdminClient.create(connectionProperties);
-        return adminClient;
+        return AdminClient.create(connectionProperties);
     }
 	
     @Override
