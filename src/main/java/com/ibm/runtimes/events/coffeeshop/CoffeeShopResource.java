@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.ibm.runtimes.events.coffeeshop.model.Beverage;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
 import org.eclipse.microprofile.reactive.streams.operators.PublisherBuilder;
 import org.eclipse.microprofile.reactive.streams.operators.ReactiveStreams;
@@ -69,7 +70,7 @@ public class CoffeeShopResource {
     public Order messaging(final Order order) {
         final Order processed = process(order);
         logger.info("Received an order: " + order);
-        queueBuffer.addEvent(getPreparationState(processed));
+        queueBuffer.addEvent(toBeverage(processed));
         orderBuffer.addEvent(toJson(processed));
         return processed;
     }
@@ -88,8 +89,13 @@ public class CoffeeShopResource {
         return jsonb.toJson(processed);
     }
 
-    private String getPreparationState(final Order processed) {
-        return PreparationState.queued(processed);
+    private String toBeverage(final Order processed) {
+        Beverage queuedBeverage = new Beverage();
+        queuedBeverage.setBeverage(processed.getProduct());
+        queuedBeverage.setCustomer(processed.getName());
+        queuedBeverage.setOrderId(processed.getOrderId());
+        queuedBeverage.setPreparationState("IN_QUEUE");
+        return jsonb.toJson(queuedBeverage, Beverage.class);
     }
 
     private Order process(final Order order) {
