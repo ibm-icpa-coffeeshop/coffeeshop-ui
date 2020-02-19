@@ -2,7 +2,7 @@ apiVersion: appsody.dev/v1beta1
 kind: AppsodyApplication
 metadata:
   annotations:
-    image.opencontainers.org/created: "2020-02-17T12:03:52Z"
+    image.opencontainers.org/created: "2020-02-19T10:40:14Z"
     stack.appsody.dev/authors: Mike Andrasak <andrasak@us.ibm.com>, Andy Mauer <ajmauer@us.ibm.com>,
       Scott Kurz <skurz@us.ibm.com>, Adam Wisniewski <awisniew@us.ibm.com>
     stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.1
@@ -19,13 +19,16 @@ metadata:
   name: coffeeshop-service-appsody
   namespace: default
 spec:
-  applicationImage: matthewpwilson/coffeeshop-service-appsody:mon3
+  applicationImage: matthewpwilson/coffeeshop-service-appsody:wed2
   createKnativeService: false
   env:
   - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
     value: my-cluster-kafka-bootstrap.kafka.svc:9092
-  - name: FOO
-    value: test
+  - name: COM_IBM_RUNTIMES_EVENTS_COFFEESHOP_HTTP_BARISTASERVICE_MP_REST_URL
+    valueFrom:
+      secretKeyRef:
+        key: url
+        name: appsody-http-appsody-http
   expose: true
   livenessProbe:
     failureThreshold: 12
