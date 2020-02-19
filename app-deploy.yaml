@@ -4,11 +4,12 @@ metadata:
   annotations:
     commit.image.appsody.dev/author: Matthew Wilson <matthew.wilson@uk.ibm.com>
     commit.image.appsody.dev/committer: Matthew Wilson <matthew.wilson@uk.ibm.com>
-    commit.image.appsody.dev/date: Wed Feb 19 11:26:12 2020 +0000
-    commit.image.appsody.dev/message: Populate barista-http path env var from secret
-    image.opencontainers.org/created: "2020-02-19T14:05:06Z"
+    commit.image.appsody.dev/date: Wed Feb 19 14:33:36 2020 +0000
+    commit.image.appsody.dev/message: Update images & move barista-http to default
+      ns
+    image.opencontainers.org/created: "2020-02-19T15:14:05Z"
     image.opencontainers.org/documentation: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service
-    image.opencontainers.org/revision: e68a957a9ec9ce36c2c6aa7faf27d55f0d3e67dd-modified
+    image.opencontainers.org/revision: 6047d58cb4cc44bd8091419b04301b6d144c8be7-modified
     image.opencontainers.org/source: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service/tree/master
     image.opencontainers.org/url: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service
     stack.appsody.dev/authors: Mike Andrasak <andrasak@us.ibm.com>, Andy Mauer <ajmauer@us.ibm.com>,
@@ -21,10 +22,10 @@ metadata:
     stack.appsody.dev/title: Open Liberty
   creationTimestamp: null
   labels:
-    image.opencontainers.org/title: coffeeshop-service-appsody
+    image.opencontainers.org/title: coffeeshop-ui
     stack.appsody.dev/id: java-openliberty
     stack.appsody.dev/version: 0.1.7
-  name: coffeeshop-service-appsody
+  name: coffeeshop-ui
   namespace: default
 spec:
   applicationImage: ianpartridge/coffeeshop-service-appsody:latest
@@ -36,7 +37,7 @@ spec:
     valueFrom:
       secretKeyRef:
         key: url
-        name: default-appsody-http
+        name: default-barista-http
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -58,7 +59,7 @@ spec:
       prometheus.io/scrape: "true"
     consumes:
     - category: openapi
-      name: appsody-http
+      name: barista-http
       namespace: default
     port: 9080
     type: NodePort
