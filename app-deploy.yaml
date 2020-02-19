@@ -6,7 +6,7 @@ metadata:
     commit.image.appsody.dev/committer: Matthew Wilson <matthew.wilson@uk.ibm.com>
     commit.image.appsody.dev/date: Wed Feb 19 11:26:12 2020 +0000
     commit.image.appsody.dev/message: Populate barista-http path env var from secret
-    image.opencontainers.org/created: "2020-02-19T13:46:33Z"
+    image.opencontainers.org/created: "2020-02-19T14:05:06Z"
     image.opencontainers.org/documentation: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service
     image.opencontainers.org/revision: e68a957a9ec9ce36c2c6aa7faf27d55f0d3e67dd-modified
     image.opencontainers.org/source: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service/tree/master
@@ -27,7 +27,7 @@ metadata:
   name: coffeeshop-service-appsody
   namespace: default
 spec:
-  applicationImage: matthewpwilson/coffeeshop-service-appsody:wed4
+  applicationImage: ianpartridge/coffeeshop-service-appsody:latest
   createKnativeService: false
   env:
   - name: MP_MESSAGING_CONNECTOR_LIBERTY_KAFKA_BOOTSTRAP_SERVERS
@@ -36,7 +36,7 @@ spec:
     valueFrom:
       secretKeyRef:
         key: url
-        name: appsody-http-appsody-http
+        name: default-appsody-http
   expose: true
   livenessProbe:
     failureThreshold: 12
@@ -59,7 +59,7 @@ spec:
     consumes:
     - category: openapi
       name: appsody-http
-      namespace: appsody-http
+      namespace: default
     port: 9080
     type: NodePort
   stack: java-openliberty
