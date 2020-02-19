@@ -93,10 +93,11 @@
         console.log("Customer name = " + order.name);
         order.product = $("#product option:selected").val();
         if(method==="http") {
-            var state = {};
-            state.order = order;
-            state.state = "IN_PROGRESS";
-            $("tbody").append(line(state));
+            var beverage = {};
+            beverage.beverage = order.product;
+            beverage.preparationState = "IN_PROGRESS";
+            beverage.customer = order.name;
+            $("tbody").append(line(beverage));
             $("#order-button").addClass("disabled").attr("disabled", true);
         }
 
@@ -112,13 +113,9 @@
             cache: false
         }).done(function(response){
             if(method==="http") {
-                var state = {};
-                order.orderId = response.orderId;
-                state.order = order;
-                state.beverage = {};
-                state.beverage.preparedBy = response.preparedBy;
-                state.state = "READY";
-                $('tbody tr:last').replaceWith(line(state));
+                var beverage = response;
+                beverage.preparationState = "READY";
+                $('tbody tr:last').replaceWith(line(beverage));
                 $("#order-button").removeClass("disabled").removeAttr("disabled");
             }
         }).fail(function(err) {
