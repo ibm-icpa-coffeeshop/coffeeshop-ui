@@ -88,5 +88,9 @@ spec:
       prometheus.io/scrape: "true"
     port: 9080
     type: NodePort
+    consumes:
+      - category: openapi
+        name: barista-http
+        namespace: default
   stack: java-openliberty
   version: 1.0.0
