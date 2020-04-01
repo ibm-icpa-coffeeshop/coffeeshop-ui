@@ -10,8 +10,7 @@
 
   <httpEndpoint httpPort="9080" id="defaultHttpEndpoint" host="*" />
 
-  <!-- <variable name="com.ibm.runtimes.events.coffeeshop.http.BaristaService/mp-rest/url" value="${env.APPSODY_HTTP_APPSODY_HTTP_URL}" /> -->
-  <webApplication location="coffeeshop-service.war" contextRoot="/">
+  <webApplication location="coffeeshop-ui.war" contextRoot="/">
   </webApplication>
 
   <quickStartSecurity userName="admin" userPassword="password" />
