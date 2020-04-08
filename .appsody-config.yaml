@@ -1,3 +1,4 @@
-project-name: coffeeshop-ui
 application-name: coffeeshop
+id: "20200407113448.19946150"
+project-name: coffeeshop-ui
 stack: docker.io/appsody/java-openliberty:0.2

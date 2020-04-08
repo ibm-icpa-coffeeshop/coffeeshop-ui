@@ -7,8 +7,9 @@ metadata:
     build-date: 2019-10-29T16:44:53.794580
     commit.image.appsody.dev/author: Matthew Wilson <matthew.wilson@uk.ibm.com>
     commit.image.appsody.dev/committer: Matthew Wilson <matthew.wilson@uk.ibm.com>
-    commit.image.appsody.dev/date: Wed Apr 1 13:01:59 2020 +0100
-    commit.image.appsody.dev/message: Merge branch 'master' into add-monitoring
+    commit.image.appsody.dev/contextDir: C:\Users\SandraHayward\Documents\Code\Appsody-Coffeeshop\coffeeshop-ui
+    commit.image.appsody.dev/date: Wed Apr 1 14:18:44 2020 +0100
+    commit.image.appsody.dev/message: Updtae app-deploy.yaml
     commit.stack.appsody.dev/author: Adam Wisniewski <awisniew@us.ibm.com>
     commit.stack.appsody.dev/committer: GitHub <noreply@github.com>
     commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
@@ -21,11 +22,12 @@ metadata:
       technologies through subscriptions for Red Hat products. This image is maintained
       by Red Hat and updated regularly.
     distribution-scope: public
-    image.opencontainers.org/created: "2020-04-01T13:02:17+01:00"
-    image.opencontainers.org/documentation: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service
-    image.opencontainers.org/revision: 43e92135a372d1e868c9003d2b879b1ee0af1698
-    image.opencontainers.org/source: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service/tree/add-monitoring
-    image.opencontainers.org/url: https://github.ibm.com/appsody-coffeeshop/coffeeshop-service
+    image.opencontainers.org/created: "2020-04-08T09:37:41+01:00"
+    image.opencontainers.org/documentation: https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui
+    image.opencontainers.org/revision: cd57f7eef0e6c44e4a1fabc9654b5d9861597da7
+    image.opencontainers.org/source: |
+      https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui/tree/add-monitoring
+    image.opencontainers.org/url: https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
       This base image is freely redistributable, but Red Hat only supports Red Hat
@@ -60,13 +62,14 @@ metadata:
     version: "8.1"
   creationTimestamp: null
   labels:
+    app.kubernetes.io/name: coffeeshop-ui
     app.kubernetes.io/part-of: coffeeshop
     image.opencontainers.org/title: coffeeshop-ui
     stack.appsody.dev/id: java-openliberty
     stack.appsody.dev/version: 0.2.5
   name: coffeeshop-ui
 spec:
-  applicationImage: matthewpwilson/coffeeshop-ui:add_monitoring2
+  applicationImage: dev.local/coffeeshop-ui
   createKnativeService: false
   expose: true
   livenessProbe:
@@ -89,7 +92,7 @@ spec:
       tlsConfig:
         insecureSkipVerify: true
     labels:
-      k8s-app: ""
+      app.kubernetes.io/name: coffeeshop-ui
   readinessProbe:
     failureThreshold: 12
     httpGet:
