@@ -41,9 +41,6 @@
                     <option value="latte">Latte</option>
                     <option value="espresso">Espresso</option>
                     <option value="mocha">Mocha</option>
-                    <option value="americano">Americano</option>
-                    <option value="irish">Irish Coffee</option>
-                    <option value="earlgrey">Earl Grey</option>
                 </select>
             </div>
         </div>
@@ -130,16 +127,32 @@
     });
 
     $(function () {
-            var source = new EventSource(window.location.protocol + "//" + window.location.host + "/services/queue");        source.onmessage = function(e) {
+        createEventSource();
+    });
+
+    var reconnectAttempts = 5;
+
+    function createEventSource() {
+        var source = new EventSource(window.location.protocol + "//" + window.location.host + "/services/queue");        
+     
+        source.onmessage = function(e) {
             console.log(e);
             var beverage = JSON.parse(e.data);
             if(beverage.preparationState=="IN_QUEUE")
                 $("tbody").append(line(beverage));
             if(beverage.preparationState=="READY")
                 $("#"+beverage.orderId).replaceWith(line(beverage));
-            
         };
-    });
+
+        source.onerror = function(e) {
+            if (reconnectAttempts > 0) {
+                console.log("Connection to event stream failed, attempting to reconnect.");
+                source.close();
+                source = createEventSource();
+                reconnectAttempts--;
+            }
+        };
+    }
 
     function line(beverage) {
         return "<tr id='" + beverage.orderId + "'>" +
