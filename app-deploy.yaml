@@ -62,11 +62,12 @@ metadata:
     version: "8.1"
   creationTimestamp: null
   labels:
-    app.kubernetes.io/name: coffeeshop-ui
+    app.kubernetes.io/instance: coffeeshop-ui
     app.kubernetes.io/part-of: coffeeshop
     image.opencontainers.org/title: coffeeshop-ui
     stack.appsody.dev/id: java-openliberty
     stack.appsody.dev/version: 0.2.5
+    monitor.appsody.dev/enabled: 'true'
   name: coffeeshop-ui
 spec:
   applicationImage: dev.local/coffeeshop-ui
@@ -92,7 +93,7 @@ spec:
       tlsConfig:
         insecureSkipVerify: true
     labels:
-      app.kubernetes.io/name: coffeeshop-ui
+      app.kubernetes.io/instance: coffeeshop-ui
   readinessProbe:
     failureThreshold: 12
     httpGet:
@@ -104,11 +105,11 @@ spec:
   service:
     annotations:
       prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
     consumes:
     - category: openapi
       name: barista-http
       namespace: default
-    port: 9080
-    type: NodePort
   stack: java-openliberty
   version: 1.0.0
