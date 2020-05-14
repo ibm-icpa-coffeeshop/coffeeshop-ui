@@ -23,8 +23,9 @@ metadata:
     distribution-scope: public
     image.opencontainers.org/created: "2020-04-23T18:25:33Z"
     image.opencontainers.org/documentation: https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui
-    image.opencontainers.org/revision: b88569e22d42f7935bf75c9cd53f3bbb63f4fa6e-modified
-    image.opencontainers.org/source: https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui/tree/master
+    image.opencontainers.org/revision: cd57f7eef0e6c44e4a1fabc9654b5d9861597da7
+    image.opencontainers.org/source: |
+      https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui/tree/add-monitoring
     image.opencontainers.org/url: https://github.ibm.com/appsody-coffeeshop/coffeeshop-ui
     k8s.io/description: The Universal Base Image is designed and engineered to be
       the base layer for all of your containerized applications, middleware and utilities.
@@ -61,9 +62,11 @@ metadata:
     version: "8.1"
   creationTimestamp: null
   labels:
+    app.kubernetes.io/instance: coffeeshop-ui
     app.kubernetes.io/part-of: coffeeshop
     image.opencontainers.org/title: coffeeshop-ui
     stack.appsody.dev/id: java-openliberty
+    monitor.appsody.dev/enabled: 'true'
     stack.appsody.dev/version: 0.2.8
   name: coffeeshop-ui
 spec:
@@ -77,6 +80,20 @@ spec:
       port: 9080
     initialDelaySeconds: 5
     periodSeconds: 2
+  monitoring:
+    endpoints:
+    - basicAuth:
+        password:
+          key: password
+          name: metrics-liberty
+        username:
+          key: username
+          name: metrics-liberty
+      interval: 10s
+      tlsConfig:
+        insecureSkipVerify: true
+    labels:
+      app.kubernetes.io/instance: coffeeshop-ui
   readinessProbe:
     failureThreshold: 12
     httpGet:
