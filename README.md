@@ -4,7 +4,7 @@ This microservice implements a backend-for-frontend for the Coffee Shop demo usi
 
 ## Local development
 
-This project has been developed using [Appsody](https://appsody.dev/).  This service needs to connect to a Kafka broker, so to develop locally you must start one.  You can do this using the providing Docker Compose file, with the following command:
+This project has been developed using [Appsody](https://appsody.dev/).  This service needs to connect to a Kafka broker, so to develop locally you must start one.  You can do this using the provided Docker Compose file, with the following command:
 ```
 docker-compose up
 ```
